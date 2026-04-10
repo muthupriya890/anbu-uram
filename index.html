@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>அன்பு உரம்</title>
+
+<style>
+body { margin:0; font-family:Arial; overflow-x:hidden; }
+
+/* SKY */
+.sky {
+    height: 60vh;
+    background: linear-gradient(#87CEEB, #fff);
+    position: relative;
+    transition: 2s;
+}
+.night { background: linear-gradient(#001848, #000); }
+
+/* SUN & MOON */
+.sun, .moon {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50px;
+}
+.sun { background: yellow; left: 20px; }
+.moon { background: white; right: 20px; display:none; }
+
+/* CLOUD */
+.cloud {
+    width: 120px; height: 60px;
+    background: white;
+    border-radius: 50px;
+    position: absolute;
+}
+.cloud1 { top:100px; animation: move 20s linear infinite; }
+.cloud2 { top:150px; animation: move 25s linear infinite; }
+
+@keyframes move {
+    from { left:-150px; }
+    to { left:100%; }
+}
+
+/* BIRD */
+.bird {
+    position:absolute;
+    top:80px;
+    font-size:25px;
+    animation: fly 15s linear infinite;
+}
+@keyframes fly {
+    from { left:-50px; }
+    to { left:100%; }
+}
+
+/* CONTENT */
+.content { text-align:center; padding:20px; animation: fade 2s; }
+h1 { color:green; font-size:40px; }
+h3 { color:darkgreen; }
+
+/* FEATURES */
+.features {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+}
+.box {
+    background:#e8f5e9;
+    padding:15px;
+    border-radius:10px;
+    width:180px;
+    transition:0.3s;
+}
+.box:hover { transform:scale(1.1); }
+
+/* BUTTON */
+button {
+    padding:10px 20px;
+    margin:5px;
+    background:green;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+button:hover { background:darkgreen; }
+
+/* CONTACT */
+.contact {
+    background:green;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+.phone {
+    background:white;
+    color:green;
+    padding:10px 20px;
+    border-radius:10px;
+    font-size:25px;
+}
+
+/* FORM */
+.form-box {
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+    width:320px;
+}
+input, select, textarea {
+    width:100%;
+    margin:5px 0;
+    padding:8px;
+}
+.close { float:right; cursor:pointer; color:red; }
+
+/* BILL */
+.bill {
+    display:none;
+    background:#f1f1f1;
+    padding:15px;
+    margin:10px;
+    border-radius:10px;
+}
+
+/* RAIN */
+.rain {
+    position:absolute;
+    width:100%;
+    height:60vh;
+    pointer-events:none;
+    display:none;
+    background-image:linear-gradient(transparent, rgba(255,255,255,0.5));
+    animation: rain 0.5s linear infinite;
+}
+@keyframes rain {
+    from { background-position:0 0; }
+    to { background-position:0 100px; }
+}
+
+/* GROUND */
+.ground {
+    height:30vh;
+    background:green;
+    position:relative;
+}
+
+/* TREE */
+.tree {
+    width:30px;
+    height:80px;
+    background:brown;
+    position:absolute;
+    bottom:0;
+}
+.tree1 { left:30%; }
+.tree2 { left:60%; }
+
+.tree::after {
+    content:"";
+    width:80px;
+    height:80px;
+    background:darkgreen;
+    border-radius:50%;
+    position:absolute;
+    top:-40px;
+    left:-25px;
+}
+
+@keyframes fade {
+    from { opacity:0; }
+    to { opacity:1; }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SKY -->
+<div class="sky" id="sky">
+    <div class="sun" id="sun"></div>
+    <div class="moon" id="moon"></div>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="bird">🐦</div>
+    <div class="rain" id="rain"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+    <h1>அன்பு உரம் 🌱</h1>
+    <h2>உங்கள் செடிகள் வேகமாக வளர</h2>
+    <h3>100% இயற்கை உரம்</h3>
+
+    <button onclick="openForm()">🛒 Buy</button>
+    <button onclick="toggleRain()">🌧 Rain</button>
+    <button onclick="toggleDayNight()">🌙 Day/Night</button>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+    <div class="box">🌿 செடிகள் விரைவில் வளரும்</div>
+    <div class="box">🌱 வேர் பலமாகும்</div>
+    <div class="box">🌍 மண் சத்து அதிகரிக்கும்</div>
+    <div class="box">❌ ரசாயனம் இல்லை</div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact">
+    <p>இப்போது ஆர்டர் செய்யுங்கள்!</p>
+    <div class="phone">📞 80150 53172</div>
+</div>
+
+<!-- FORM -->
+<div class="form-box" id="formBox">
+    <span class="close" onclick="closeForm()">X</span>
+    <h3>Order Details</h3>
+
+    <input type="text" id="name" placeholder="பெயர்">
+    <input type="text" id="phone" placeholder="மொபைல் நம்பர்">
+    <textarea id="address" placeholder="முகவரி"></textarea>
+
+    <label>Quantity:</label>
+    <select id="qty" onchange="calc()">
+        <option value="1">1 KG</option>
+        <option value="2">2 KG</option>
+        <option value="5">5 KG</option>
+    </select>
+
+    <p>Price: ₹100/KG</p>
+    <p>Total: ₹<span id="total">100</span></p>
+
+    <button onclick="payNow()">💳 Pay & Order</button>
+</div>
+
+<!-- BILL -->
+<div class="bill" id="bill">
+    <h3>🧾 Invoice</h3>
+    <p id="billData"></p>
+</div>
+
+<!-- GROUND -->
+<div class="ground">
+    <div class="tree tree1"></div>
+    <div class="tree tree2"></div>
+</div>
+
+<script>
+
+let price = 100;
+
+/* FORM */
+function openForm(){ document.getElementById("formBox").style.display="block"; }
+function closeForm(){ document.getElementById("formBox").style.display="none"; }
+
+/* CALC */
+function calc(){
+    let qty = document.getElementById("qty").value;
+    document.getElementById("total").innerText = qty * price;
+}
+
+/* ORDER */
+function payNow(){
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+    let qty = document.getElementById("qty").value;
+    let total = qty * price;
+
+    if(name=="" || phone==""){
+        alert("Details fill pannunga!");
+        return;
+    }
+
+    // BILL
+    document.getElementById("bill").style.display="block";
+    document.getElementById("billData").innerHTML =
+    `Name: ${name}<br>Phone: ${phone}<br>Qty: ${qty}KG<br>Total: ₹${total}`;
+
+    // WHATSAPP
+    let msg = `Order:%0AName:${name}%0APhone:${phone}%0AQty:${qty}KG%0ATotal:₹${total}`;
+    window.open(`https://wa.me/918015053172?text=${msg}`);
+
+    // UPI
+    let upi = `upi://pay?pa=yourupi@okaxis&pn=AnbuUram&am=${total}`;
+    window.location.href = upi;
+}
+
+/* Rain */
+function toggleRain(){
+    let rain = document.getElementById("rain");
+    rain.style.display = rain.style.display === "block" ? "none" : "block";
+}
+
+/* Day/Night */
+function toggleDayNight(){
+    let sky = document.getElementById("sky");
+    let sun = document.getElementById("sun");
+    let moon = document.getElementById("moon");
+
+    sky.classList.toggle("night");
+
+    if(sky.classList.contains("night")){
+        sun.style.display="none";
+        moon.style.display="block";
+    } else {
+        sun.style.display="block";
+        moon.style.display="none";
+    }
+}
+</script>
+
+</body>
+</html>
